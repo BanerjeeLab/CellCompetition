@@ -1,0 +1,20 @@
+{
+    "version":"4.5.0",
+    "parameter_list":{
+		"Contact_Death_Prob":{ "values":["'P_bio_100'"] 
+		},
+        "J_WT_MT_Hetero":{ "values":[6.5] },
+        "J_WT_Homo"     :{ "values":[12.5] },
+        "J_MT_Homo"     :{ "values":[6.5] 
+		},
+        "Uncrowded_Growth_Rate_Multiplier":{"values":[1.0] },		
+        "k_lam_idx"     :{ "values":[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },		
+        "Sizer_Thresh_Multiplier":{         "values":[1.0] },
+        "init_radius":{                     "values":[   300  ] 
+		},
+        "J_Medium"      :{ "values":[15] },
+        "J_death"       :{ "values":[15] 
+		},		
+        "repeat_sim_for_stats":{ "values":[1,2,3,4,5] }
+    }
+}
