@@ -1,0 +1,196 @@
+    <CompuCell3D Revision="0" Version="4.5.0">
+   
+<Metadata>    
+   <!-- Basic properties simulation -->
+   <NumberOfProcessors>1</NumberOfProcessors>
+   <DebugOutputFrequency>100</DebugOutputFrequency>
+   <!-- <NonParallelModule Name="Potts"/>                -->
+</Metadata>
+   <Potts>      
+      <!-- Basic properties of CPM (GGH) algorithm -->
+      <Dimensions x="1500" y="1500" z="1"/>
+      <Steps>15000</Steps>
+      <Temperature>            10.0</Temperature>
+      <NeighborOrder>1</NeighborOrder>
+      <LatticeType>Square</LatticeType>
+   </Potts>
+   
+   <Plugin Name="CellType">
+      
+      <!-- Listing all cell types in the simulation -->
+      <CellType TypeId="0"  TypeName="Medium"/>
+	  
+      <CellType TypeId="1"  TypeName="wt_1"/>
+      <CellType TypeId="2"  TypeName="wt_2"/>
+      <CellType TypeId="3"  TypeName="wt_3"/>
+      <CellType TypeId="4"  TypeName="wt_4"/>
+	  
+      <CellType TypeId="5"  TypeName="mt_5"/>
+      <CellType TypeId="6"  TypeName="mt_6"/>
+      <CellType TypeId="7"  TypeName="mt_7"/>
+      <CellType TypeId="8"  TypeName="mt_8"/>
+	  
+      <CellType TypeId="9"  TypeName="density_death"/>
+      <CellType TypeId="10" TypeName="contact_death"/>
+   </Plugin>
+   
+   <Plugin Name="Volume"/>   
+   <!-- <Plugin Name="Surface"/> -->    
+  
+   <Plugin Name="ExternalPotential">        
+      <!-- External force applied to cell. Each cell has different force and force components have to be managed in Python. -->
+      <!-- e.g. cell.lambdaVecX=0.5; cell.lambdaVecY=0.1 ; cell.lambdaVecZ=0.3; -->
+      <Algorithm>PixelBased</Algorithm>	  
+	  <!-- <Algorithm>CenterOfMassBased</Algorithm>  -->
+	  <!-- Note that in the pixel-based algorithm the typical value of pixel displacement 
+				used in calculations is of the order of 1 (pixel) whereas typical displacement of center of 
+				mass of cell due to single pixel copy is of the order of 1/cell volume (pixels) – ~ 0.1 
+				pixel. This implies that to achieve compatible behavior of cells when using center of 
+				mass algorithm we need to multiply lambda’s by appropriate factor, typicall of the order 
+				of 10. -->
+   </Plugin>   
+   
+   <Plugin Name="CenterOfMass">
+      
+      <!-- Module tracking center of mass of each cell -->
+   </Plugin> 
+   
+   <Plugin Name="NeighborTracker">
+      
+      <!-- Module tracking neighboring cells of each cell -->
+   </Plugin>
+   
+    <Plugin Name="MomentOfInertia">      
+       <!-- Module tracking moment of inertia of each cell  -->
+   </Plugin>   
+   
+   <Plugin Name="PixelTracker">
+      
+      <!--Module tracking pixels of each cell> -->
+   </Plugin>
+   
+   <Plugin Name="BoundaryPixelTracker">
+         
+      <!-- Module tracking pixels of each cell -->
+   </Plugin>
+   
+   <Plugin Name="Contact">     
+      <!-- ####################################
+	       #Specification of adhesion energies# 
+           #################################### -->
+
+	   <Energy Type1="Medium" Type2="Medium"> {{J_Medium}} </Energy>
+	  
+      <Energy Type1="Medium" Type2="wt_1"> {{J_Medium}} </Energy>
+	   <Energy Type1="Medium" Type2="wt_2"> {{J_Medium}} </Energy>
+      <Energy Type1="Medium" Type2="wt_3"> {{J_Medium}} </Energy>
+      <Energy Type1="Medium" Type2="wt_4"> {{J_Medium}} </Energy>
+      
+	   <Energy Type1="Medium" Type2="mt_5"> {{J_Medium}} </Energy>      
+      <Energy Type1="Medium" Type2="mt_6"> {{J_Medium}} </Energy>
+      <Energy Type1="Medium" Type2="mt_7"> {{J_Medium}} </Energy>
+      <Energy Type1="Medium" Type2="mt_8"> {{J_Medium}} </Energy>
+	  
+      
+      <Energy Type1="Medium" Type2="density_death"> {{J_Medium}} </Energy>
+	   <Energy Type1="Medium" Type2="contact_death"> {{J_Medium}} </Energy>
+	  
+	  <!-- ###########################
+	       #HOMOTYPIC BINDING ENERGIE#
+	       ########################### -->		   
+     <!-- ########################### -->		        
+	  <!--         WILD TYPE           -->	   
+     <!-- ########################### -->		        
+
+	   <Energy Type1="wt_1" Type2="wt_1"> {{J_WT_Homo}} </Energy>
+      <Energy Type1="wt_1" Type2="wt_2"> {{J_WT_Homo}} </Energy>
+      <Energy Type1="wt_1" Type2="wt_3"> {{J_WT_Homo}} </Energy>
+	   <Energy Type1="wt_1" Type2="wt_4"> {{J_WT_Homo}} </Energy>
+	  
+	   <Energy Type1="wt_2" Type2="wt_2"> {{J_WT_Homo}} </Energy>
+      <Energy Type1="wt_2" Type2="wt_3"> {{J_WT_Homo}} </Energy>
+      <Energy Type1="wt_2" Type2="wt_4"> {{J_WT_Homo}} </Energy>
+	  
+	   <Energy Type1="wt_3" Type2="wt_3"> {{J_WT_Homo}} </Energy>
+      <Energy Type1="wt_3" Type2="wt_4"> {{J_WT_Homo}} </Energy>
+	  
+	   <Energy Type1="wt_4" Type2="wt_4"> {{J_WT_Homo}} </Energy>
+	  
+     <!-- ########################### -->		        
+	  <!--           MUTANT            -->	
+     <!-- ########################### -->		        
+
+      <Energy Type1="mt_5" Type2="mt_5"> {{J_MT_Homo}} </Energy>  
+      <Energy Type1="mt_5" Type2="mt_6"> {{J_MT_Homo}} </Energy>
+      <Energy Type1="mt_5" Type2="mt_7"> {{J_MT_Homo}} </Energy>
+      <Energy Type1="mt_5" Type2="mt_8"> {{J_MT_Homo}} </Energy>
+	  
+	   <Energy Type1="mt_6" Type2="mt_6"> {{J_MT_Homo}} </Energy>
+      <Energy Type1="mt_6" Type2="mt_7"> {{J_MT_Homo}} </Energy>
+      <Energy Type1="mt_6" Type2="mt_8"> {{J_MT_Homo}} </Energy>
+	  
+	   <Energy Type1="mt_7" Type2="mt_7"> {{J_MT_Homo}} </Energy>
+      <Energy Type1="mt_7" Type2="mt_8"> {{J_MT_Homo}} </Energy>
+	  
+	   <Energy Type1="mt_8" Type2="mt_8"> {{J_MT_Homo}} </Energy>
+	  
+	  <!-- ###############################
+	       # HETEROTYPIC BINDING ENERGIE #
+	       ############################### -->
+	   <Energy Type1="wt_1" Type2="mt_5"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_1" Type2="mt_6"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_1" Type2="mt_7"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_1" Type2="mt_8"> {{J_WT_MT_Hetero}} </Energy>
+	  
+	   <Energy Type1="wt_2" Type2="mt_5"> {{J_WT_MT_Hetero}} </Energy>
+	   <Energy Type1="wt_2" Type2="mt_6"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_2" Type2="mt_7"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_2" Type2="mt_8"> {{J_WT_MT_Hetero}} </Energy>
+      
+	   <Energy Type1="wt_3" Type2="mt_5"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_3" Type2="mt_6"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_3" Type2="mt_7"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_3" Type2="mt_8"> {{J_WT_MT_Hetero}} </Energy>      
+	  
+  	   <Energy Type1="wt_4" Type2="mt_5"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_4" Type2="mt_6"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_4" Type2="mt_7"> {{J_WT_MT_Hetero}} </Energy>
+      <Energy Type1="wt_4" Type2="mt_8"> {{J_WT_MT_Hetero}} </Energy>
+	  
+	  <!-- #############################
+	       # BINDING ENERGY WITH DYING CELLS#
+	       ############################# -->
+     <Energy Type1="wt_1" Type2="density_death"> {{J_death}} </Energy>
+	  <Energy Type1="wt_2" Type2="density_death"> {{J_death}} </Energy>
+	  <Energy Type1="wt_3" Type2="density_death"> {{J_death}} </Energy>
+	  <Energy Type1="wt_4" Type2="density_death"> {{J_death}} </Energy>
+	  <Energy Type1="mt_5" Type2="density_death"> {{J_death}} </Energy>
+	  <Energy Type1="mt_6" Type2="density_death"> {{J_death}} </Energy>
+	  <Energy Type1="mt_7" Type2="density_death"> {{J_death}} </Energy>
+	  <Energy Type1="mt_8" Type2="density_death"> {{J_death}} </Energy>
+	  
+      <Energy Type1="wt_1" Type2="contact_death"> {{J_death}} </Energy>
+      <Energy Type1="wt_2" Type2="contact_death"> {{J_death}} </Energy>
+      <Energy Type1="wt_3" Type2="contact_death"> {{J_death}} </Energy>
+      <Energy Type1="wt_4" Type2="contact_death"> {{J_death}} </Energy>
+      <Energy Type1="mt_5" Type2="contact_death"> {{J_death}} </Energy>
+      <Energy Type1="mt_6" Type2="contact_death"> {{J_death}} </Energy>
+      <Energy Type1="mt_7" Type2="contact_death"> {{J_death}} </Energy>
+      <Energy Type1="mt_8" Type2="contact_death"> {{J_death}} </Energy>
+      
+ 	   <Energy Type1="density_death" Type2="density_death"> {{J_death}} </Energy>
+      <Energy Type1="density_death" Type2="contact_death"> {{J_death}} </Energy>
+
+      <Energy Type1="contact_death" Type2="contact_death"> {{J_death}} </Energy>
+	  
+   <NeighborOrder>1</NeighborOrder>
+   </Plugin>   
+   
+    <!-- ###############################################################################################
+           PUT THIS LINE IN .cc3d FILE:   <PIFFile Type="PIFFile">Simulation/init_conf.piff</PIFFile> 
+         ############################################################################################### -->
+				<Steppable Type="PIFInitializer"> 
+			  <PIFName>Simulation/init_conf.piff</PIFName>
+		    </Steppable>                 
+</CompuCell3D>
+

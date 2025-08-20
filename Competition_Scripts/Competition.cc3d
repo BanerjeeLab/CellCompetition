@@ -1,0 +1,10 @@
+<Simulation version="4.5.0">
+   <XMLScript Type="XMLScript">Simulation/Comp_Conf.xml</XMLScript>
+   <PythonScript Type="PythonScript">Simulation/Comp_Conf.py</PythonScript>
+   
+   <PIFFile Type="PIFFile">Simulation/init_conf.piff</PIFFile> 
+   
+   <Resource Type="Python">Simulation/HST_Steppables.py</Resource>
+
+   <ParameterScan Type="ParameterScan">Simulation/ParameterScanSpecs.json</ParameterScan> 
+</Simulation>
